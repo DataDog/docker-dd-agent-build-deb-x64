@@ -1,0 +1,22 @@
+machine:
+  services:
+    - docker
+
+general:
+  artifacts:
+    - "pkg"
+
+dependencies:
+  pre:
+    - mkdir -p ~/pkg
+    - mkdir -p ~/cache
+  cache_directories:
+    - "~/cache"
+  post:
+    - docker run -e AGENT_BRANCH=$AGENT_BRANCH -e AGENT_VERSION=$AGENT_VERSION -v ~/pkg:/dd-agent-omnibus/pkg -v ~/cache:/var/cache/omnibus datadog/docker-dd-agent-build-deb-x64
+
+
+test:
+  override:
+    - mkdir -p pkg
+    - cp ~/pkg/* pkg/
