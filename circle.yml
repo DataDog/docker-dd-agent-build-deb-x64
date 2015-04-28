@@ -3,6 +3,9 @@ machine:
     - docker
 
 general:
+  branches:
+    ignore:
+      - /.*/
   artifacts:
     - "pkg"
 
