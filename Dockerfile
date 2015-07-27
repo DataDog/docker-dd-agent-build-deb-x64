@@ -24,7 +24,6 @@ RUN git config --global user.name "Debian Omnibus Package"
 RUN git clone https://github.com/DataDog/dd-agent-omnibus.git
 # TODO: remove the checkout line after the merge to master
 RUN cd dd-agent-omnibus && \
-    git checkout etienne/omnibus-4-migration && \
     /bin/bash -l -c "bundle install --binstubs"
 
 VOLUME ["/dd-agent-omnibus/pkg"]
