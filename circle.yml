@@ -15,7 +15,7 @@ dependencies:
   cache_directories:
     - "~/cache"
   post:
-    - docker run -e OMNIBUS_BRANCH=$OMNIBUS_BRANCH -e AGENT_BRANCH=$AGENT_BRANCH -e AGENT_VERSION=$AGENT_VERSION -v /home/ubuntu/pkg:/dd-agent-omnibus/pkg -v /home/ubuntu/cache:/var/cache/omnibus datadog/docker-dd-agent-build-deb-x64
+    - docker run -e OMNIBUS_SOFTWARE_BRANCH=$OMNIBUS_SOFTWARE_BRANCH -e OMNIBUS_BRANCH=$OMNIBUS_BRANCH -e AGENT_BRANCH=$AGENT_BRANCH -e AGENT_VERSION=$AGENT_VERSION -v /home/ubuntu/pkg:/dd-agent-omnibus/pkg -v /home/ubuntu/cache:/var/cache/omnibus datadog/docker-dd-agent-build-deb-x64
 
 
 test:
