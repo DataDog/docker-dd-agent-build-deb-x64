@@ -17,6 +17,7 @@ dependencies:
     - "~/cache"
   post:
     - docker run -e OMNIBUS_APPEND_TIMESTAMP=no -e OMNIBUS_BRANCH=$OMNIBUS_BRANCH -e AGENT_BRANCH=$AGENT_BRANCH -e AGENT_VERSION=$AGENT_VERSION -v ~/pkg:/dd-agent-omnibus/pkg -v ~/cache:/var/cache/omnibus datadog/docker-dd-agent-build-deb-x64
+    - curl -u $JENKINS_USER:$JENKINS_PASSWORD -vvv -X POST "$JENKINS_URL?token=$JENKINS_TOKEN"
 
 
 test:
