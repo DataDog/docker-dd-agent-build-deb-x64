@@ -1,4 +1,4 @@
-FROM debian:squeeze
+FROM debian:jessie
 MAINTAINER Remi Hakim @remh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN \curl -sSL https://get.rvm.io | bash -s stable
-
-ADD keys/my_key_rsa /root/.ssh/id_rsa
 
 RUN /bin/bash -l -c "rvm requirements"
 RUN /bin/bash -l -c "rvm install 2.2.2"
