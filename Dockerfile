@@ -22,9 +22,16 @@ RUN curl -o /tmp/go1.3.3.linux-amd64.tar.gz https://storage.googleapis.com/golan
 RUN git config --global user.email "package@datadoghq.com"
 RUN git config --global user.name "Debian Omnibus Package"
 RUN git clone https://github.com/DataDog/dd-agent-omnibus.git
-# TODO: remove the checkout line after the merge to master
+RUN cd dd-agent-omnibus && git checkout tristan/integration
+# TODO: remove the previous checkout line after the merge to master
+RUN git clone https://github.com/tmichelet/playground.git
+# TODO: use RUN git clone https://github.com/DataDog/core-integrations.git
 RUN cd dd-agent-omnibus && \
     /bin/bash -l -c "bundle install --binstubs"
+
+RUN /bin/bash -l -c "echo 'deb http://apt.datadoghq.com/ stable main' > /etc/apt/sources.list.d/datadog.list"
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 C7A7DA52
+RUN apt-get update
 
 VOLUME ["/dd-agent-omnibus/pkg"]
 ENTRYPOINT /bin/bash -l /dd-agent-omnibus/omnibus_build.sh
