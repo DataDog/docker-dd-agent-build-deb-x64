@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     procps \
     fakeroot
 
-RUN echo "deb http://http.debian.net/debian squeeze-backports main" >/etc/apt/sources.list.d/squeeze-backports.list
+RUN echo "deb http://http.debian.net/debian-backports squeeze-backports main" >/etc/apt/sources.list.d/squeeze-backports.list
 RUN apt-get update -qq && apt-get -t wheezy-backports install -y -qq \
     git
 
