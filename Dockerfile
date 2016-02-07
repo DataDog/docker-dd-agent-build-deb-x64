@@ -1,6 +1,7 @@
 FROM debian:squeeze
 MAINTAINER Remi Hakim @remh
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN echo "dash dash/sh boolean false" | debconf-set-selections -v \
+    && dpkg-reconfigure -f noninteractive dash
 
 RUN apt-get update && apt-get install -y \
     git \
