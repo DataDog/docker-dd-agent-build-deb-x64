@@ -2,17 +2,20 @@ FROM debian:squeeze
 MAINTAINER Remi Hakim @remh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+RUN cat /etc/apt/sources.list | grep -v "squeeze-updates" | sed "s#httpredir#archive#" > /etc/apt/sources.new.list && mv /etc/apt/sources.new.list /etc/apt/sources.list && echo "Acquire::Check-Valid-Until false;" > /etc/apt/apt.conf
 RUN apt-get update && apt-get install -y \
     curl \
     procps \
     fakeroot
 
-RUN echo "deb http://http.debian.net/debian-backports squeeze-backports main" >/etc/apt/sources.list.d/squeeze-backports.list
+RUN echo "deb http://archive.debian.org/debian-backports squeeze-backports main" >/etc/apt/sources.list.d/squeeze-backports.list
 RUN apt-get update -q && apt-get -t squeeze-backports install -y -q \
     git
 
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN curl -sSL https://get.rvm.io | bash -s stable
+
+RUN sed -i "s/libgmp-dev//g" /usr/local/rvm/scripts/functions/requirements/debian
 
 RUN /bin/bash -l -c "rvm requirements && rvm install 2.2.2 && gem install bundler --no-ri --no-rdoc" && \
     rm -rf /usr/local/rvm/src/ruby-2.2.2
