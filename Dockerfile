@@ -33,7 +33,7 @@ RUN git clone https://github.com/DataDog/integrations-extras.git
 RUN git clone https://github.com/DataDog/integrations-core.git
 
 RUN cd dd-agent-omnibus && \
-    /bin/bash -l -c "bundle install --binstubs"
+    /bin/bash -l -c "OMNIBUS_RUBY_BRANCH='datadog-5.0.0' bundle install --binstubs"
 
 RUN /bin/bash -l -c "echo 'deb http://apt.datadoghq.com/ stable main' > /etc/apt/sources.list.d/datadog.list"
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 C7A7DA52
