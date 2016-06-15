@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:squeeze
 MAINTAINER Remi Hakim @remh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
