@@ -2,14 +2,10 @@ FROM debian:wheezy
 MAINTAINER Remi Hakim @remh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN cat /etc/apt/sources.list | grep -v "squeeze-updates" | sed "s#httpredir#archive#" > /etc/apt/sources.new.list && mv /etc/apt/sources.new.list /etc/apt/sources.list && echo "Acquire::Check-Valid-Until false;" > /etc/apt/apt.conf
 RUN apt-get update && apt-get install -y \
     curl \
     procps \
-    fakeroot
-
-RUN echo "deb http://archive.debian.org/debian-backports squeeze-backports main" >/etc/apt/sources.list.d/squeeze-backports.list
-RUN apt-get update -q && apt-get -t squeeze-backports install -y -q \
+    fakeroot \
     git
 
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
