@@ -4,10 +4,8 @@ machine:
 
 general:
   branches:
-    only:
-      - master
-    # ignore:
-    #   - /.*/
+    ignore:
+      - /.*/
   artifacts:
     - "pkg"
 
