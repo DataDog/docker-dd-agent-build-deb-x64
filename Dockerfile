@@ -35,5 +35,7 @@ RUN /bin/bash -l -c "echo 'deb http://apt.datadoghq.com/ stable main' > /etc/apt
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 C7A7DA52
 RUN apt-get update
 
+ADD checkout_omnibus_branch.sh /
+
 VOLUME ["/dd-agent-omnibus/pkg"]
-ENTRYPOINT /bin/bash -l /dd-agent-omnibus/omnibus_build.sh
+ENTRYPOINT /bin/bash -l /checkout_omnibus_branch.sh
