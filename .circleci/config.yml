@@ -3,6 +3,9 @@ version: 2
 jobs:
   build:
     machine: true
+    branches:
+      ignore:
+        - /.*/
     steps:
       - run: mkdir -p ~/pkg ~/cache
       - run: echo "$RELEASE_VERSION $OMNIBUS_BRANCH" > ~/cache_key.txt
