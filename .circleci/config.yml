@@ -1,0 +1,27 @@
+version: 2
+
+jobs:
+  build:
+    machine: true
+    branches:
+      ignore:
+        - /.*/
+    steps:
+      - run: mkdir -p ~/pkg ~/cache
+      - run: echo "$RELEASE_VERSION $OMNIBUS_BRANCH" > ~/cache_key.txt
+      - restore_cache:
+          keys:
+            - omnibus-deb-cache-{{ checksum "~/cache_key.txt" }} 
+      - run: docker run -e RELEASE_VERSION=$RELEASE_VERSION -e OMNIBUS_BRANCH=$OMNIBUS_BRANCH -v /home/circleci/pkg:/dd-agent-omnibus/pkg -v /home/circleci/cache:/var/cache/omnibus datadog/docker-dd-agent-build-deb-x64
+      - save_cache: 
+          key: omnibus-deb-cache-{{ checksum "~/cache_key.txt" }}
+          paths:
+            - ~/cache
+      - store_artifacts:
+          path: ~/pkg
+
+workflows:
+  version: 2
+  build_deb:
+    jobs:
+      - build
