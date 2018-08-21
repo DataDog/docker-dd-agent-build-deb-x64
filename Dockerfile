@@ -20,9 +20,9 @@ RUN /bin/bash -l -c "rvm requirements && rvm install 2.2.2 && gem install bundle
 RUN curl -fsSL curl.haxx.se/ca/cacert.pem \
          -o $(/bin/bash -l -c "ruby -ropenssl -e 'puts OpenSSL::X509::DEFAULT_CERT_FILE'")
 
-RUN curl -o /tmp/go1.3.3.linux-amd64.tar.gz https://storage.googleapis.com/golang/go1.3.3.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf /tmp/go1.3.3.linux-amd64.tar.gz && \
-    rm -f /tmp/go1.3.3.linux-amd64.tar.gz && \
+RUN curl -o /tmp/go1.10.3.linux-amd64.tar.gz https://storage.googleapis.com/golang/go1.10.3.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf /tmp/go1.10.3.linux-amd64.tar.gz && \
+    rm -f /tmp/go1.10.3.linux-amd64.tar.gz && \
     echo "PATH=$PATH:/usr/local/go/bin" | tee /etc/profile.d/go.sh
 
 RUN git config --global user.email "package@datadoghq.com" && \
