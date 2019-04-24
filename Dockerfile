@@ -1,6 +1,15 @@
-FROM debian:wheezy
+FROM debian:wheezy-backports
 MAINTAINER Remi Hakim @remh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Mitigation for CVE-2019-3462
+RUN echo 'Acquire::http::AllowRedirect"false";' >> /etc/apt/apt.conf.d/20datadog
+# Ignore expired repos signature
+RUN echo 'Acquire::Check-Valid-Until "false";' >> /etc/apt/apt.conf.d/20datadog
+
+RUN echo "deb http://archive.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list && \
+ echo "deb http://archive.debian.org/debian wheezy-backports main contrib non-free" > /etc/apt/sources.list.d/backports.list && \
+ echo "deb http://archive.debian.org/debian-security wheezy/updates main contrib non-free" > /etc/apt/sources.list.d/security.list
 
 RUN apt-get update && apt-get install -y \
     curl \
