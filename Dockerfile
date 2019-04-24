@@ -22,7 +22,7 @@ RUN curl -sSL https://get.rvm.io | bash -s stable
 
 RUN sed -i "s/libgmp-dev//g" /usr/local/rvm/scripts/functions/requirements/debian
 
-RUN /bin/bash -l -c "rvm requirements && rvm install 2.2.2 && gem install bundler --no-ri --no-rdoc" && \
+RUN /bin/bash -l -c "rvm requirements && rvm install 2.2.2 && gem install bundler -v 1.17.3 --no-ri --no-rdoc" && \
     rm -rf /usr/local/rvm/src/ruby-2.2.2
 
 # Update certs used by ruby
