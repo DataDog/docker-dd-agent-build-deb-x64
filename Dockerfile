@@ -5,6 +5,9 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Mitigation for CVE-2019-3462
 RUN echo 'Acquire::http::AllowRedirect"false";' >> /etc/apt/apt.conf.d/20datadog
 # Ignore expired repos signature
+# Wheezy is EOL, security updates repo will not get any newer updates, or will do so
+# in arbitrary, unscheduled timeframes. At the time of this writing the repo has
+# expired making the following option necessary for apt to work.
 RUN echo 'Acquire::Check-Valid-Until "false";' >> /etc/apt/apt.conf.d/20datadog
 
 RUN echo "deb http://archive.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list && \
