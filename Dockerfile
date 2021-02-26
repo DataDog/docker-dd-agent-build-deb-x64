@@ -1,6 +1,7 @@
 FROM debian:wheezy-backports
 MAINTAINER Remi Hakim @remh
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN echo "dash dash/sh boolean false" | debconf-set-selections -v \
+    && dpkg-reconfigure -f noninteractive dash
 
 # Mitigation for CVE-2019-3462
 RUN echo 'Acquire::http::AllowRedirect"false";' >> /etc/apt/apt.conf.d/20datadog
